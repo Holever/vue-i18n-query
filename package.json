@@ -1,0 +1,106 @@
+{
+  "name": "vue-i18n-query",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./out/extension.js",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "activationEvents": [
+    "onView:vueI18nQuery.preview",
+    "onCommand:vueI18nQuery.query",
+    "onCommand:vueI18nQuery.replace",
+    "onCommand:vueI18nQuery.clear"
+  ],
+  "contributes": {
+    "configuration":[
+      {
+        "title": "about query",
+        "properties": {
+          "vue-i18n-query.baseUrl": {
+            "type": "string",
+            "default": "",
+            "description": "i18n's baseUrl"
+          },
+          "vue-i18n-query.token": {
+            "type": "string",
+            "default": "",
+            "description": "baseUrl token"
+          },
+          "vue-i18n-query.promptKeys": {
+            "type":"array",
+            "default": ["mobile.common"],
+            "description": "promptKeys of query"
+          }
+        }
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "vueI18nQuery.preview",
+          "name": "vue文件涉及的翻译"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vueI18nQuery.query",
+        "title": "query i18n",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vueI18nQuery.replace",
+        "title": "query i18n",
+        "icon": "$(replace-all)"
+      },
+      {
+        "command": "vueI18nQuery.clear",
+        "title": "clear i18n",
+        "icon": "$(clear-all)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vueI18nQuery.query",
+          "group": "navigation",
+          "when": "view == vueI18nQuery.preview"
+        },
+        {
+          "command": "vueI18nQuery.replace",
+          "group": "navigation",
+          "when": "view == vueI18nQuery.preview"
+        },
+        {
+          "command": "vueI18nQuery.clear",
+          "group": "navigation",
+          "when": "view == vueI18nQuery.preview"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "lint": "eslint . --ext .ts,.tsx",
+    "watch": "tsc -w -p ./",
+    "compile": "tsc -p ./"
+  },
+  "keywords": [],
+  "author": "hdw",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.16.4",
+    "@babel/types": "^7.16.0",
+    "@types/vscode": "^1.63.0",
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.12"
+  }
+}
