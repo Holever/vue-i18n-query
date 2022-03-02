@@ -150,8 +150,7 @@ export default {
                     })
 
                     extractStrings = extractStrings.concat(_extractStrings)
-                    jsCode = jsCode.substr(0, _start + changeLength) + '{{'
-                      + result.result + '}}' + jsCode.substr(_start + code.length + 4 + changeLength)
+                    jsCode = jsCode.substr(0, _start + changeLength) + '{{' + result.result + '}}' + jsCode.substr(_start + code.length + 4 + changeLength)
                     changeLength += result.result.length - code.length
                     _start += result.result.length + 3
                   }
@@ -167,6 +166,7 @@ export default {
               // 将{{前的内容取出，封装成一个{{}}结构
               code = last.substr(0, startIndex)
               last = last.substr(startIndex)
+              _start += startIndex
             } else {
               code = last
               last = ''

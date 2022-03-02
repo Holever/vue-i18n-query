@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-query",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./out/extension.js",
   "engines": {
@@ -11,7 +11,7 @@
     "workspace"
   ],
   "activationEvents": [
-    "onView:vueI18nQuery.preview",
+    "onView:vueI18nQuery.treeView",
     "onCommand:vueI18nQuery.query",
     "onCommand:vueI18nQuery.replace",
     "onCommand:vueI18nQuery.clear"
@@ -39,29 +39,45 @@
         }
       }
     ],
+    "viewsContainers": {
+			"activitybar": [
+				{
+					"id": "package-explorer",
+					"title": "Package Explorer",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
     "views": {
+      "package-explorer": [
+				{
+					"id": "nodeDependencies",
+					"name": "Node Dependencies",
+					"icon": "media/dep.svg",
+					"contextualTitle": "Package Explorer"
+				}
+			],
       "explorer": [
         {
-          "type": "webview",
-          "id": "vueI18nQuery.preview",
-          "name": "vue文件涉及的翻译"
-        }
+					"id": "vueI18nQuery.treeView",
+					"name": "i18n tree View"
+				}
       ]
     },
     "commands": [
       {
         "command": "vueI18nQuery.query",
-        "title": "query i18n",
+        "title": "query",
         "icon": "$(refresh)"
       },
       {
         "command": "vueI18nQuery.replace",
-        "title": "query i18n",
+        "title": "replace all",
         "icon": "$(replace-all)"
       },
       {
         "command": "vueI18nQuery.clear",
-        "title": "clear i18n",
+        "title": "clear all",
         "icon": "$(clear-all)"
       }
     ],
@@ -69,30 +85,31 @@
       "view/title": [
         {
           "command": "vueI18nQuery.query",
-          "group": "navigation",
-          "when": "view == vueI18nQuery.preview"
+          "group": "navigation@1",
+          "when": "view == vueI18nQuery.treeView"
         },
         {
           "command": "vueI18nQuery.replace",
-          "group": "navigation",
-          "when": "view == vueI18nQuery.preview"
+          "group": "navigation@2",
+          "when": "view == vueI18nQuery.treeView"
         },
         {
           "command": "vueI18nQuery.clear",
-          "group": "navigation",
-          "when": "view == vueI18nQuery.preview"
+          "group": "navigation@3",
+          "when": "view == vueI18nQuery.treeView"
         }
       ]
     }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "build": "vsce package",
     "lint": "eslint . --ext .ts,.tsx",
     "watch": "tsc -w -p ./",
     "compile": "tsc -p ./"
   },
   "keywords": [],
-  "author": "hdw",
+  "author": "Holever",
   "license": "ISC",
   "dependencies": {
     "@babel/parser": "^7.16.4",
