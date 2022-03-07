@@ -91,22 +91,26 @@ export class DepNodeProvider implements vscode.TreeDataProvider<Dependency> {
 
 		let ret = extractString.reduce((acc, cur) => {
 			let reStr = cur.replaceCode
-			let generateCode = this.generateI18nFnStr(cur.replaceType, this.getI18nCode(cur.word));
-			// -||0||-
+			const { originalCode } = cur
+			const i18nCode = this.getI18nCode(cur.word)
+			let tarStr = originalCode
 			let inResultStr = `${markString[0]}${cur.index}${markString[1]}`
-			if (cur.type === 'template') { // 字符串模板
-				let varArr = []
-				reStr.replace(/%\$\$(.+?)\$\$%/g, ($0, $1) => {
-					varArr.push($1)
-					return ''
-				})
-				generateCode = generateCode.replace(')', `, [ ${varArr} ])`)
-				inResultStr = reStr
+			if(i18nCode) {
+				let generateCode = this.generateI18nFnStr(cur.replaceType, i18nCode)
+				if (cur.type === 'template') { // 字符串模板
+					let varArr = []
+					reStr.replace(/%\$\$(.+?)\$\$%/g, ($0, $1) => {
+						varArr.push($1)
+						return ''
+					})
+					generateCode = generateCode.replace(')', `, [ ${varArr} ])`)
+					inResultStr = reStr
+				}
+				tarStr = reStr.replace(
+					inResultStr,
+					generateCode
+				)
 			}
-			let tarStr = reStr.replace(
-				inResultStr,
-				generateCode
-			)
 			acc = acc.replace(
 				inResultStr,
 				tarStr
@@ -119,7 +123,7 @@ export class DepNodeProvider implements vscode.TreeDataProvider<Dependency> {
 	public getI18nCode(chineseChar: string): string {
 		let arr = this._languageList || []
 		let find: any = arr.find(item => item['zh_CN'] === chineseChar)
-		return find ? find.key : chineseChar
+		return find ? find.key : ''
 	}
 
 	/**

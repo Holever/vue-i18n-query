@@ -1,7 +1,7 @@
 {
   "name": "vue-i18n-query",
   "version": "1.0.1",
-  "description": "",
+  "description": "Vue 多语言前后端匹配的vscode插件",
   "main": "./out/extension.js",
   "engines": {
     "vscode": "^1.50.0"
@@ -24,17 +24,17 @@
           "vue-i18n-query.baseUrl": {
             "type": "string",
             "default": "",
-            "description": "i18n's baseUrl"
+            "description": "query i18n's baseUrl"
+          },
+          "vue-i18n-query.apiParamsPath": {
+            "type": "string",
+            "default": "",
+            "description": "query i18n's apiParamsPath"
           },
           "vue-i18n-query.token": {
             "type": "string",
             "default": "",
-            "description": "baseUrl token"
-          },
-          "vue-i18n-query.promptKeys": {
-            "type":"array",
-            "default": ["mobile.common"],
-            "description": "promptKeys of query"
+            "description": "query i18n's baseUrl token"
           }
         }
       }
@@ -108,7 +108,7 @@
     "watch": "tsc -w -p ./",
     "compile": "tsc -p ./"
   },
-  "keywords": [],
+  "keywords": ["vscode", "vue", "vue2", "i18n"],
   "author": "Holever",
   "license": "ISC",
   "dependencies": {
